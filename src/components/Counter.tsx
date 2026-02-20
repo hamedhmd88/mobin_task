@@ -9,11 +9,10 @@ function heavyCalc(item: any) {
   return sum;
 }
 
-// ✅ Fix 4: memo → فقط وقتی props واقعاً عوض بشه re-render میشه
 const ItemCard = memo(({ item, onSelect }: any) => {
   useEffect(() => {
     console.log("Rendering item:", item.id);
-  }, []); // این log فقط mount اول رو نشون میده
+  }, []);
 
   return (
     <div
@@ -42,25 +41,19 @@ export default function Counter() {
 
   const [count, setCount] = useState(0);
 
-  // ✅ Fix 1: dependency array خالی → فقط یکبار mount اجرا میشه (اگه واقعاً نیاز بود)
-  // اگه هدف شمارش رندرها بود → useRef بدون re-render
-  // useEffect(() => { setCount(c => c + 1); }, []); ← یکبار اجرا
-
-  // ✅ Fix 2: useMemo → فقط وقتی items عوض بشه محاسبه سنگین دوباره اجرا میشه
+ 
   const totalValue = useMemo(
     () => items.reduce((sum: any, item: any) => sum + heavyCalc(item), 0),
     [items]
   );
 
-  // ✅ Fix 3: useCallback → reference ثابت بین رندرها، memo روی ItemCard کار میکنه
   const handleSelect = useCallback(
     (id: any) => {
       console.log("Selected item with current count:", id, "count:", count);
     },
     [count]
-  ); // اگه به count نیاز نداره → dependency array خالی
+  );
 
-  // ✅ Fix 5: کلون بی‌دلیل حذف شد
 
   return (
     <div className="w-full max-w-xl rounded-2xl border border-zinc-800 bg-zinc-950 text-zinc-100 p-6 shadow-sm">
