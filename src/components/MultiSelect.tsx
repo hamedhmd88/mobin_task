@@ -94,7 +94,7 @@ function MultiSelect<T>({
 }
 
 /* =======================
-   App
+   MultiSelectComponent
 ======================= */
 
 const PAGE_SIZE = 5;
@@ -150,12 +150,9 @@ export default function MultiSelectComponent() {
   return (
     <div className="w-full bg-zinc-950 text-white flex items-center justify-center p-8 font-mono">
       <div className="w-full max-w-2xl">
-        <h1 className="text-2xl font-bold text-emerald-400 mb-1">
+        <h1 className="text-2xl font-bold text-emerald-400 mb-3">
           Headless MultiSelect
         </h1>
-        <p className="text-zinc-500 text-sm mb-6">
-          Simple · Reusable · Searchable
-        </p>
 
         {loading && (
           <div className="space-y-2 animate-pulse">
